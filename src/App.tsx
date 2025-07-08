@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card'
 import { Badge } from './components/ui/badge'
-import { Wind, Settings, Activity, BarChart3, CheckCircle, ArrowDown, Zap, Cpu, Database, Target } from 'lucide-react'
+import { Wind, Settings, Activity, BarChart3, CheckCircle, ArrowRight, Zap } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { cn } from './lib/utils'
 
@@ -19,14 +19,14 @@ interface FlowStep {
 const flowSteps: FlowStep[] = [
   {
     id: '1',
-    title: 'Defining Turbulence Profiles',
-    description: 'Establish turbulence characteristics for different terrain types',
+    title: 'Turbulence Profiles',
+    description: 'Define turbulence characteristics',
     substeps: [
-      'Select turbulence intensities for urban and open terrain',
-      'Define inflow velocity and turbulence parameters',
-      'Use suitable turbulence models for inflow conditions'
+      'Select turbulence intensities',
+      'Define inflow parameters',
+      'Choose turbulence models'
     ],
-    icon: <Wind className="w-6 h-6" />,
+    icon: <Wind className="w-5 h-5" />,
     color: 'text-blue-700',
     bgColor: 'bg-gradient-to-br from-blue-50 to-blue-100',
     borderColor: 'border-blue-200',
@@ -34,14 +34,14 @@ const flowSteps: FlowStep[] = [
   },
   {
     id: '2',
-    title: 'Geometry and Mesh',
-    description: 'Create and optimize computational domain and mesh',
+    title: 'Geometry & Mesh',
+    description: 'Create computational domain',
     substeps: [
-      'Model VAWT and surrounding environment for both terrains',
-      'Generate refined mesh near blades and wake regions',
-      'Perform mesh independence check'
+      'Model VAWT environment',
+      'Generate refined mesh',
+      'Perform mesh independence'
     ],
-    icon: <Settings className="w-6 h-6" />,
+    icon: <Settings className="w-5 h-5" />,
     color: 'text-emerald-700',
     bgColor: 'bg-gradient-to-br from-emerald-50 to-emerald-100',
     borderColor: 'border-emerald-200',
@@ -49,15 +49,14 @@ const flowSteps: FlowStep[] = [
   },
   {
     id: '3',
-    title: 'CFD Setup (ANSYS Fluent)',
-    description: 'Configure simulation parameters and boundary conditions',
+    title: 'CFD Setup',
+    description: 'Configure ANSYS Fluent',
     substeps: [
-      'Choose turbulence and solver models',
-      'Set boundary and initial conditions',
-      'Implement blade rotation method',
-      'Run simulations to steady state'
+      'Choose solver models',
+      'Set boundary conditions',
+      'Implement blade rotation'
     ],
-    icon: <Activity className="w-6 h-6" />,
+    icon: <Activity className="w-5 h-5" />,
     color: 'text-purple-700',
     bgColor: 'bg-gradient-to-br from-purple-50 to-purple-100',
     borderColor: 'border-purple-200',
@@ -66,13 +65,13 @@ const flowSteps: FlowStep[] = [
   {
     id: '4',
     title: 'Post Processing',
-    description: 'Extract and analyze simulation results',
+    description: 'Analyze simulation results',
     substeps: [
-      'Extract power, torque, and thrust data',
-      'Analyse velocity and turbulence fields',
-      'Visualize wake and flow patterns'
+      'Extract power/torque data',
+      'Analyze velocity fields',
+      'Visualize flow patterns'
     ],
-    icon: <BarChart3 className="w-6 h-6" />,
+    icon: <BarChart3 className="w-5 h-5" />,
     color: 'text-orange-700',
     bgColor: 'bg-gradient-to-br from-orange-50 to-orange-100',
     borderColor: 'border-orange-200',
@@ -81,13 +80,13 @@ const flowSteps: FlowStep[] = [
   {
     id: '5',
     title: 'Validation',
-    description: 'Verify and validate simulation results',
+    description: 'Verify simulation results',
     substeps: [
-      'Compare results with experimental or literature data',
+      'Compare with experimental data',
       'Perform sensitivity analysis',
-      'Discuss uncertainties and limitations'
+      'Discuss limitations'
     ],
-    icon: <CheckCircle className="w-6 h-6" />,
+    icon: <CheckCircle className="w-5 h-5" />,
     color: 'text-red-700',
     bgColor: 'bg-gradient-to-br from-red-50 to-red-100',
     borderColor: 'border-red-200',
@@ -97,76 +96,67 @@ const flowSteps: FlowStep[] = [
 
 const ConnectorArrow = ({ index }: { index: number }) => (
   <motion.div
-    initial={{ opacity: 0, y: -10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4, delay: index * 0.2 + 0.3 }}
-    className="flex justify-center my-6"
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+    className="flex items-center justify-center mx-4"
   >
-    <div className="relative flex flex-col items-center">
-      <div className="w-0.5 h-8 bg-gradient-to-b from-gray-300 to-gray-500 mb-2"></div>
-      <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center shadow-lg">
-        <ArrowDown className="w-5 h-5 text-white" />
-      </div>
-      <div className="w-0.5 h-8 bg-gradient-to-b from-gray-500 to-gray-300 mt-2"></div>
+    <div className="w-12 h-12 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center shadow-lg">
+      <ArrowRight className="w-6 h-6 text-white" />
     </div>
   </motion.div>
 )
 
 const FlowchartStep = ({ step, index }: { step: FlowStep; index: number }) => (
   <motion.div
-    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.2 }}
-    className="relative"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="flex-1 min-w-0"
   >
     <Card className={cn(
-      "transition-all duration-300 hover:shadow-xl border-2 overflow-hidden",
+      "h-full transition-all duration-300 hover:shadow-lg border-2 overflow-hidden",
       step.borderColor,
-      "shadow-lg hover:shadow-2xl hover:scale-[1.02]"
+      "hover:scale-105"
     )}>
-      <div className={cn("h-2", step.bgColor.replace('from-', 'from-').replace('to-', 'to-'))}></div>
-      <CardHeader className={cn("pb-4", step.bgColor)}>
-        <div className="flex items-start gap-4">
+      <div className={cn("h-1", step.bgColor)}></div>
+      <CardHeader className={cn("pb-3", step.bgColor)}>
+        <div className="flex items-center gap-3 mb-2">
           <div className={cn(
-            "p-3 rounded-xl shadow-lg flex-shrink-0",
+            "p-2 rounded-lg shadow-md flex-shrink-0",
             step.iconBg
           )}>
             <div className="text-white">
               {step.icon}
             </div>
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 mb-2">
-              <Badge variant="secondary" className="text-xs font-semibold px-2 py-1">
-                Step {step.id}
-              </Badge>
-            </div>
-            <CardTitle className={cn("text-xl font-bold mb-2", step.color)}>
-              {step.title}
-            </CardTitle>
-            <CardDescription className="text-sm text-gray-600 leading-relaxed">
-              {step.description}
-            </CardDescription>
-          </div>
+          <Badge variant="secondary" className="text-xs font-semibold">
+            {step.id}
+          </Badge>
         </div>
+        <CardTitle className={cn("text-lg font-bold mb-1", step.color)}>
+          {step.title}
+        </CardTitle>
+        <p className="text-sm text-gray-600 leading-tight">
+          {step.description}
+        </p>
       </CardHeader>
       
-      <CardContent className="pt-0 pb-6">
-        <div className="space-y-3">
+      <CardContent className="pt-0 pb-4">
+        <div className="space-y-2">
           {step.substeps.map((substep, subIndex) => (
             <motion.div
               key={subIndex}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.2 + subIndex * 0.1 + 0.3 }}
-              className="flex items-start gap-3 group"
+              transition={{ duration: 0.3, delay: index * 0.1 + subIndex * 0.05 + 0.2 }}
+              className="flex items-start gap-2"
             >
               <div className={cn(
-                "w-2 h-2 rounded-full mt-2 flex-shrink-0 transition-all duration-200",
-                step.color.replace('text-', 'bg-'),
-                "group-hover:scale-125"
+                "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
+                step.color.replace('text-', 'bg-')
               )} />
-              <p className="text-sm text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors duration-200">
+              <p className="text-xs text-gray-700 leading-relaxed">
                 {substep}
               </p>
             </motion.div>
@@ -177,69 +167,38 @@ const FlowchartStep = ({ step, index }: { step: FlowStep; index: number }) => (
   </motion.div>
 )
 
-const HeaderGraphic = () => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.8 }}
-    className="flex justify-center mb-8"
-  >
-    <div className="relative">
-      <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
-        <Zap className="w-16 h-16 text-white" />
-      </div>
-      <div className="absolute -top-2 -right-2 w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
-        <Cpu className="w-6 h-6 text-white" />
-      </div>
-      <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center shadow-lg">
-        <Database className="w-6 h-6 text-white" />
-      </div>
-      <div className="absolute -top-2 -left-2 w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
-        <Target className="w-6 h-6 text-white" />
-      </div>
-    </div>
-  </motion.div>
-)
-
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="max-w-5xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
         >
-          <HeaderGraphic />
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+              <Zap className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
             VAWT CFD Analysis
-            <span className="block text-4xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="block text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Methodology Flowchart
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            A comprehensive visual guide outlining the complete methodology for Vertical Axis Wind Turbine 
-            (VAWT) CFD analysis, from turbulence modeling through validation and verification.
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            Complete methodology for Vertical Axis Wind Turbine CFD analysis
           </p>
-          <div className="flex justify-center">
-            <div className="bg-white/60 backdrop-blur-sm rounded-full px-6 py-2 border border-gray-200 shadow-sm">
-              <p className="text-sm font-medium text-gray-700">
-                5 Essential Steps • Complete Methodology • Research Ready
-              </p>
-            </div>
-          </div>
         </motion.div>
 
         {/* Flowchart */}
-        <div className="relative">
-          {/* Background decoration */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-transparent pointer-events-none"></div>
-          
-          <div className="relative space-y-0">
+        <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200">
+          <div className="flex items-stretch gap-0 overflow-x-auto min-h-[400px]">
             {flowSteps.map((step, index) => (
-              <div key={step.id}>
+              <div key={step.id} className="flex items-stretch">
                 <FlowchartStep step={step} index={index} />
                 {index < flowSteps.length - 1 && (
                   <ConnectorArrow index={index} />
@@ -251,46 +210,32 @@ function App() {
 
         {/* Footer */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="mt-16"
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-8"
         >
-          <Card className="bg-gradient-to-r from-gray-50 to-white shadow-xl border-2 border-gray-200">
-            <CardContent className="p-8">
-              <div className="text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
-                    <Target className="w-8 h-8 text-white" />
-                  </div>
+          <Card className="bg-gradient-to-r from-gray-50 to-white shadow-lg border border-gray-200">
+            <CardContent className="p-6 text-center">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Systematic CFD Analysis Approach
+              </h3>
+              <p className="text-gray-600 leading-relaxed max-w-3xl mx-auto text-sm">
+                This flowchart provides a proven methodology for VAWT CFD analysis, ensuring comprehensive 
+                coverage from turbulence setup through validation for reliable simulation results.
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-4">
+                <div className="flex items-center gap-2 text-xs text-gray-600">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span>Research Validated</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Comprehensive Methodology Overview
-                </h3>
-                <p className="text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                  This flowchart represents a systematic and proven approach to VAWT CFD analysis, 
-                  ensuring comprehensive coverage of all critical aspects from initial turbulence setup 
-                  through final validation. Each step builds upon the previous one to provide reliable, 
-                  accurate, and scientifically sound simulation results that can be used for research, 
-                  development, and engineering applications.
-                </p>
-                <div className="mt-6 flex flex-wrap justify-center gap-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span>Research Validated</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                    <span>Industry Standard</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span>Peer Reviewed</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    <span>Reproducible</span>
-                  </div>
+                <div className="flex items-center gap-2 text-xs text-gray-600">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                  <span>Industry Standard</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-gray-600">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span>Reproducible</span>
                 </div>
               </div>
             </CardContent>
